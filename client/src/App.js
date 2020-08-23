@@ -58,14 +58,9 @@ function App() {
     })
   }, []);
 
-  function callPeer(id) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      config: {
-
-        iceServers: [
-            {
+  let iceServers = [];
+  if (process.env.NODE_ENV === 'production') { 
+    iceServers = [{
                 urls: "stun:numb.viagenie.ca",
                 username: "sultan1640@gmail.com",
                 credential: "98376683"
@@ -75,8 +70,15 @@ function App() {
                 username: "sultan1640@gmail.com",
                 credential: "98376683"
             }
-        ]
-    },
+    ];
+  }
+  function callPeer(id) {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      config: {
+        iceServers: iceServers
+      },
       stream: stream,
     });
 
