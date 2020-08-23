@@ -6,7 +6,7 @@ const socket = require("socket.io");
 const io = socket(server);
 
 const users = {};
-
+const port = process.env.PORT || 8000;
 io.on('connection', socket => {
     if (!users[socket.id]) {
         users[socket.id] = socket.id;
@@ -26,6 +26,8 @@ io.on('connection', socket => {
     })
 });
 
-server.listen(8000, () => console.log('server is running on port 8000'));
+
+
+server.listen(port, () => console.log(`server is running on port ${port}`));
 
 
